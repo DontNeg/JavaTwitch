@@ -17,14 +17,14 @@ public class CommandListener {
         TwitchClient twitchClient = bot.twitchClient;
         twitchClient.getEventManager().onEvent(ChannelMessageEvent.class, event -> {
             String msg = event.getMessage();
-            if(msg.startsWith("add(")&&event.getUser().getName().equals("d0ntneg")){
+            if(msg.startsWith("add(")&&event.getUser().getName().equals(Dotenv.configure().load().get("CHANNEL"))){
                 try{
                     Files.write(Paths.get("commands.txt"), (
-                                msg.substring(msg.indexOf("(")+1,msg.indexOf(","))
-                                + " " +
-                                msg.substring(msg.indexOf(",")+1,msg.indexOf(")")) + "\n"
-                            ).getBytes(),
-                            StandardOpenOption.APPEND);
+                        msg.substring(msg.indexOf("(")+1,msg.indexOf(","))
+                        + " " +
+                        msg.substring(msg.indexOf(",")+1,msg.indexOf(")")) + "\n"
+                        ).getBytes(),
+                        StandardOpenOption.APPEND);
                 } catch (IOException ignored) {}
             }
             try {
