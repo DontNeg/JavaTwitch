@@ -8,8 +8,9 @@ import com.github.twitch4j.TwitchClientBuilder;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Bot {
-    TwitchClient twitchClient;
     static Bot bot;
+    TwitchClient twitchClient;
+
     public Bot(OAuth2Credential credential, Class<? extends IEventHandler> eventHandler) {
         twitchClient = TwitchClientBuilder
                 .builder()
@@ -19,7 +20,8 @@ public class Bot {
                 .withDefaultEventHandler(eventHandler)
                 .build();
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         OAuth2Credential credential = new OAuth2Credential("twitch", Dotenv.configure().load().get("OAUTH"));
         bot = new Bot(credential, SimpleEventHandler.class);
         CommandListener commandListener = new CommandListener();
